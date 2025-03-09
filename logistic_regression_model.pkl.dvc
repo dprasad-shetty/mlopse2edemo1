@@ -1,0 +1,5 @@
+outs:
+- md5: 5453e9797dc51f882db54d0714f34e48
+  size: 1423
+  hash: md5
+  path: logistic_regression_model.pkl
