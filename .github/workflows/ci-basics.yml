@@ -30,3 +30,11 @@ jobs:
 
       - name: Run Training Script
         run: python train/train.py
+
+      - name: Commit and Push Model
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add model/
+          git diff --staged --quiet || git commit -m "Update trained model [skip ci]"
+          git push
