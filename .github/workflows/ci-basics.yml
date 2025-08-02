@@ -30,3 +30,10 @@ jobs:
 
       - name: Run Training Script
         run: python train/train.py
+
+      - name: Upload Trained Model as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: trained-model
+          path: model/
+
