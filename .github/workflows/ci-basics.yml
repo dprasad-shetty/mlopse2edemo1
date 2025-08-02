@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feat1
     paths:
       - 'data/**'
       - 'train/**'
