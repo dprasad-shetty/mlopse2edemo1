@@ -1,13 +1,21 @@
 import pandas as pd
 import numpy as np
+import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 import pickle
 
+# Get the current script directory and project root
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)  # Going up one level from 'train' folder
+
+# Construct paths relative to the project root
+data_path = os.path.join(project_root, 'data', 'Advertising.csv')
+
 # Load the data
-df = pd.read_csv(r'C:\Users\ankit_aj\Desktop\MLOPS-case_studies\Demo_050725_DVC\github-action-demo\mlopse2edemo1\data\Advertising.csv')
+df = pd.read_csv(data_path)
 
 
 # Data Cleaning Function (from previous steps)
@@ -125,7 +133,9 @@ print(f"\nR2 score on the test data: {r2_test:.4f}")
 
 
 # Save the trained model to a pkl file
-filename = r'C:\Users\ankit_aj\Desktop\MLOPS-case_studies\Demo_050725_DVC\github-action-demo\mlopse2edemo1\model\gradient_boosting_regressor_model.pkl'
-pickle.dump(final_gbr_model, open(filename, 'wb'))
+model_dir = os.path.join(project_root, 'model')
+os.makedirs(model_dir, exist_ok=True)  # Create model directory if it doesn't exist
+model_path = os.path.join(model_dir, 'gradient_boosting_regressor_model.pkl')
 
-print(f"Trained Gradient Boosting Regressor model saved to {filename}")
+pickle.dump(final_gbr_model, open(model_path, 'wb'))
+print(f"Trained Gradient Boosting Regressor model saved to {model_path}")
