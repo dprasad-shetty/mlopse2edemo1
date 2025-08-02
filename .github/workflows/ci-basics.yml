@@ -32,11 +32,12 @@ jobs:
       - name: Run Training Script
         run: python train/train.py
 
-      - name: Copy Model to Artifacts Folder
+      - name: Copy Model and Metrics to Artifacts Folder
         run: |
           mkdir -p artifacts
           cp -r model/* artifacts/
-          echo "Model copied to artifacts folder at $(date)" > artifacts/build-info.txt
+          cp -r Metrics/* artifacts/
+          echo "Model and metrics copied to artifacts folder at $(date)" > artifacts/build-info.txt
 
       - name: Upload Trained Model as Artifact
         uses: actions/upload-artifact@v4
@@ -44,11 +45,11 @@ jobs:
           name: trained-model
           path: model/
 
-      - name: Commit Artifacts to Repository
+      - name: Commit Artifacts and Metrics to Repository
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add artifacts/
-          git commit -m "Update trained model [skip ci]" || exit 0
+          git add artifacts/ Metrics/
+          git commit -m "Update trained model and metrics [skip ci]" || exit 0
           git push
 
