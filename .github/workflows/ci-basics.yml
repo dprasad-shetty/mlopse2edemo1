@@ -34,6 +34,7 @@ jobs:
 
       - name: Copy Model to Artifacts Folder
         run: |
+          mkdir -p artifacts
           cp -r model/* artifacts/
           echo "Model copied to artifacts folder at $(date)" > artifacts/build-info.txt
 
